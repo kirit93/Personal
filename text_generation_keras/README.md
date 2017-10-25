@@ -1,7 +1,13 @@
 This is an introductory guide on text generation using RNNs and Keras. Please follow the steps mentioned below.
 
-## Setting up your environment
-#### [Using virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
-#### [Using anaconda](https://conda.io/docs/user-guide/install/index.html)
+## Creating your environment
+#### [Virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
+#### [Anaconda](https://conda.io/docs/user-guide/install/index.html)
 
+## Installing packaged
+Activate your virtual environment.
+* Virtualenv - source myenv/bin/activate
+* Anaconda - source activate myenv
+
+`pip install -r requirements.txt`
 
