@@ -11,7 +11,8 @@ To activate your virtual environment.
 
 ## Steps to follow
 
-* Clone the project into a local directory
+* Clone the project into a local directory `git clone https://github.com/kirit93/Personal.git`
+* `cd text_generation_keras`
 * Install the dependencies by running `pip install -r requirements.txt`
 * Run the notebook by running `jupyter notebook`
 
