@@ -9,5 +9,9 @@ Activate your virtual environment.
 * Virtualenv - source myenv/bin/activate
 * Anaconda - source activate myenv
 
-`pip install -r requirements.txt`
+## Steps to follow
+
+* Clone the project into a local directory
+* Install the dependencies by running `pip install -r requirements.txt`
+* Run the notebook by running `jupyter notebook`
 
