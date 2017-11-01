@@ -6,8 +6,8 @@ You can create your virtual environment using either Anaconda or Virtualenv. Fol
 * [Anaconda](https://conda.io/docs/user-guide/install/index.html)
 
 To activate your virtual environment.
-* Virtualenv - source myenv/bin/activate
-* Anaconda - source activate myenv
+* Virtualenv - `source myenv/bin/activate`
+* Anaconda - `source activate myenv`
 
 ## Steps to follow
 
