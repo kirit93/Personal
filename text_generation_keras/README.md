@@ -6,10 +6,13 @@ You can create your virtual environment using either Anaconda or Virtualenv. Fol
 * [Virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
 * [Anaconda](https://conda.io/docs/user-guide/install/index.html)
 
+**Make sure to create a python3.x environment** <br>
+You can check to see that your environment is created with the correct python version by activating your environment and running the command `python --version`. You should see a version greater than 3.
 ### Steps to follow
 
-* Clone the project into a local directory `git clone https://github.com/kirit93/Personal.git`
+* Clone the project into a local directory <br> `git clone https://github.com/kirit93/Personal.git`
 * `cd text_generation_keras`
-* Install the dependencies by running `pip install -r requirements.txt`
-* Run the notebook by running `jupyter notebook`
+* Install the dependencies by running <br> `pip install -r requirements.txt`
+* Run the notebook by running <br> `jupyter notebook`
+* To run the code <br> For training `python text_gen.py --mode train` <br> For testing `python text_gen.py --mode test`. While testing make sure to include the path to the weight file in the code.
 
