@@ -14,5 +14,5 @@ You can check to see that your environment is created with the correct python ve
 * `cd text_generation_keras`
 * Install the dependencies by running <br> `pip install -r requirements.txt`
 * Run the notebook by running <br> `jupyter notebook`
-* To run the code <br> For training `python text_gen.py --mode train` <br> For testing `python text_gen.py --mode test`. While testing make sure to include the path to the weight file in the code.
+* To run the code <br> For training - `python text_gen.py --mode train` <br> For testing - `python text_gen.py --mode test`. <br> While testing make sure to include the path to the weight file in the code.
 
