@@ -1,5 +1,5 @@
 This is an introductory guide on text generation using RNNs and Keras. Please follow the steps mentioned below.
-**This tutorial will require python3.x**
+**This tutorial will require Python3.x**
 
 ### Creating your environment
 You can create your virtual environment using either Anaconda or Virtualenv. Follow the links for instructions on how to set up your environment
