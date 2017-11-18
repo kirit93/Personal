@@ -152,10 +152,9 @@ def main():
         K.set_learning_phase(0)
         print("Generating text")
         if weights is None:
-            raise Exception
+            raise Exception("No weights provided")
         else:
             generate_text(model, X, weights, ix_to_char, vocab_size)
 
 if __name__ == '__main__':
     main()
-    
