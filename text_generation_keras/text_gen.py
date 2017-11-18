@@ -143,7 +143,7 @@ def main():
         X = read_array("data/input_data.hdf5")
         Y = read_array("data/output_data.hdf5")
 
-    model   = create_model(2, X.shape, 256, Y.shape[1], drop_rate = 0.3)
+    model   = create_model(1, X.shape, 256, Y.shape[1])
 
     if args.mode == 'train':
         print("Training")
