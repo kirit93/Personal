@@ -8,6 +8,7 @@ from keras.models               import Sequential
 from keras.layers               import LSTM, Dense, Dropout
 from keras.utils                import np_utils
 from keras.callbacks            import ModelCheckpoint
+from keras                      import backend as K
 
 SEQ_LENGTH = 100
 
@@ -47,30 +48,24 @@ def get_formatted_data(data, vocab_size, char_to_int):
 
     return X, Y
 
-def create_model(n_hidden_layers, input_shape, hidden_dim, n_out, **kwargs):
+def create_model(n_layers, input_shape, hidden_dim, n_out, **kwargs):
     drop        = kwargs.get('drop_rate', 0.2)
     activ       = kwargs.get('activation', 'softmax')
-    mode        = kwargs.get('mode', 'train')
     hidden_dim  = int(hidden_dim)
     model       = Sequential()
-    flag        = True
+    flag        = True 
 
-    if (n_hidden_layers == 0):
-        flag = False
-    
-    model.add( LSTM(hidden_dim, input_shape = (input_shape[1], input_shape[2]), return_sequences = flag ) )
-    if mode == 'train':
+    if n_layers == 1:   
+        model.add( LSTM(hidden_dim, input_shape = (input_shape[1], input_shape[2])) )
         model.add( Dropout(drop) )
 
-    for i in range(n_hidden_layers - 1):
-        model.add( LSTM(hidden_dim, return_sequences = True) )
-        if mode == 'train':
+    else:
+        model.add( LSTM(hidden_dim, input_shape = (input_shape[1], input_shape[2]), return_sequences = True) )
+        model.add( Dropout(drop) )
+        for i in range(n_layers - 2):
+            model.add( LSTM(hidden_dim, return_sequences = True) )
             model.add( Dropout(drop) )
-
-    if (n_hidden_layers > 0):
         model.add( LSTM(hidden_dim) )
-        if mode == 'train':
-            model.add( Dropout(drop) )  
 
     model.add( Dense(n_out, activation = activ) )
 
@@ -128,12 +123,16 @@ def read_array(filename):
 def main():
     parser  = argparse.ArgumentParser()
     parser.add_argument('--mode', default = "train")
+    parser.add_argument('--weights', default = None)
 
     args    = parser.parse_args()
 
     filename                            = 'data/game_of_thrones.txt'
+    weights                             = args.weights 
     data                                = load_data(filename)
     ix_to_char, char_to_ix, vocab_size  = get_data_stats(data)
+
+    print("Unique character mappings: \n ", ix_to_char)
 
     if not os.path.exists("data/input_data.hdf5") and not os.path.exists("data/output_data.hdf5"):
         X, Y    = get_formatted_data(data, vocab_size, char_to_ix)
@@ -144,14 +143,18 @@ def main():
         X = read_array("data/input_data.hdf5")
         Y = read_array("data/output_data.hdf5")
 
-    model   = create_model(3, X.shape, 256, Y.shape[1], drop_rate = 0.3, activation = 'softmax', mode = args.mode)
+    model   = create_model(2, X.shape, 256, Y.shape[1], drop_rate = 0.3)
 
     if args.mode == 'train':
         print("Training")
         train(model, X, Y, 100, 128, vocab_size)
     elif args.mode == 'test':
+        K.set_learning_phase(0)
         print("Generating text")
-        generate_text(model, X, "Weights/weights-improvement-15-1.7141.hdf5", ix_to_char, vocab_size)
+        if weights is None:
+            raise Exception
+        else:
+            generate_text(model, X, weights, ix_to_char, vocab_size)
 
 if __name__ == '__main__':
     main()
