@@ -12,6 +12,8 @@ from keras                      import backend as K
 
 SEQ_LENGTH = 100
 
+
+
 def load_data(filename):
     data    = open(filename).read()
     data    = data.lower()
@@ -81,6 +83,7 @@ def train(model, X, Y, n_epochs, b_size, vocab_size, **kwargs):
     checkpoint      = ModelCheckpoint(filepath, monitor = 'loss', verbose = 1, save_best_only = True, mode = 'min')
     callbacks_list  = [checkpoint]
     X               = X / float(vocab_size)
+
     model.fit(X, Y, epochs = n_epochs, batch_size = b_size, callbacks = callbacks_list)
 
 def generate_text(model, X, filename, ix_to_char, vocab_size):
@@ -147,7 +150,7 @@ def main():
 
     if args.mode == 'train':
         print("Training")
-        train(model, X, Y, 100, 128, vocab_size)
+        train(model, X, Y, 100, 512, vocab_size)
     elif args.mode == 'test':
         K.set_learning_phase(0)
         print("Generating text")
