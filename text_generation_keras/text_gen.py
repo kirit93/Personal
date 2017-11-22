@@ -53,20 +53,24 @@ def get_formatted_data(data, vocab_size, char_to_int):
 def create_model(n_layers, input_shape, hidden_dim, n_out, **kwargs):
     drop        = kwargs.get('drop_rate', 0.2)
     activ       = kwargs.get('activation', 'softmax')
+    mode        = kwargs.get('mode', 'train')
     hidden_dim  = int(hidden_dim)
     model       = Sequential()
     flag        = True 
 
     if n_layers == 1:   
         model.add( LSTM(hidden_dim, input_shape = (input_shape[1], input_shape[2])) )
-        model.add( Dropout(drop) )
+        if mode == 'train':
+            model.add( Dropout(drop) )
 
     else:
         model.add( LSTM(hidden_dim, input_shape = (input_shape[1], input_shape[2]), return_sequences = True) )
-        model.add( Dropout(drop) )
+        if mode == 'train':
+            model.add( Dropout(drop) )
         for i in range(n_layers - 2):
             model.add( LSTM(hidden_dim, return_sequences = True) )
-            model.add( Dropout(drop) )
+            if mode == 'train':
+                model.add( Dropout(drop) )
         model.add( LSTM(hidden_dim) )
 
     model.add( Dense(n_out, activation = activ) )
@@ -146,13 +150,12 @@ def main():
         X = read_array("data/input_data.hdf5")
         Y = read_array("data/output_data.hdf5")
 
-    model   = create_model(1, X.shape, 256, Y.shape[1])
+    model   = create_model(1, X.shape, 256, Y.shape[1], mode = args.mode)
 
     if args.mode == 'train':
         print("Training")
         train(model, X, Y, 100, 512, vocab_size)
     elif args.mode == 'test':
-        K.set_learning_phase(0)
         print("Generating text")
         if weights is None:
             raise Exception("No weights provided")
