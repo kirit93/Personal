@@ -154,7 +154,7 @@ def main():
 
     if args.mode == 'train':
         print("Training")
-        train(model, X, Y, 100, 512, vocab_size)
+        train(model, X[:1024], Y[:1024], 100, 512, vocab_size)
     elif args.mode == 'test':
         print("Generating text")
         if weights is None:
