@@ -1,2 +1,2 @@
-# PyCon_Delhi
-This repo contains a Powerpoint presentation and a Jupyter notebook that I will use for my talk on "Introduction to NumPy" at PyCon Delhi.
+# Introduction to Numpy
+This repo contains a tutorial on the basic features on Numpy. This is targetted at Python beginners who want to learn how to solve numerical and scientific problems in Python in an easy and optimized way.
