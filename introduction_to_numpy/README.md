@@ -1,2 +1,0 @@
-# Introduction to Numpy
-This repo contains a tutorial on the basic features on Numpy. This is targetted at Python beginners who want to learn how to solve numerical and scientific problems in Python in an easy and optimized way.
